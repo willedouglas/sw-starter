@@ -1,5 +1,7 @@
 import { BaseService } from "@/services/BaseService";
 
+import { statisticsService } from "@/services";
+
 import { Movie, People, SearchParams, SearchResponse } from "./types";
 
 export class SearchService extends BaseService {
@@ -10,23 +12,45 @@ export class SearchService extends BaseService {
   }
 
   async getMovies(params: SearchParams): Promise<SearchResponse<Movie>> {
-    const response = await this.get<SearchResponse<Movie>>("/films", {
-      params: {
-        search: params.query,
-      },
-    });
+    const startTime = Date.now();
 
-    return response.data;
+    try {
+      const response = await this.get<SearchResponse<Movie>>("/films", {
+        params: {
+          search: params.query,
+        },
+      });
+
+      const responseTime = Date.now() - startTime;
+      statisticsService.addQuery(params.query, "movies", responseTime);
+
+      return response.data;
+    } catch (error) {
+      const responseTime = Date.now() - startTime;
+      statisticsService.addQuery(params.query, "movies", responseTime);
+      throw error;
+    }
   }
 
   async getPeople(params: SearchParams): Promise<SearchResponse<People>> {
-    const response = await this.get<SearchResponse<People>>("/people", {
-      params: {
-        search: params.query,
-      },
-    });
+    const startTime = Date.now();
 
-    return response.data;
+    try {
+      const response = await this.get<SearchResponse<People>>("/people", {
+        params: {
+          search: params.query,
+        },
+      });
+
+      const responseTime = Date.now() - startTime;
+      statisticsService.addQuery(params.query, "people", responseTime);
+
+      return response.data;
+    } catch (error) {
+      const responseTime = Date.now() - startTime;
+      statisticsService.addQuery(params.query, "people", responseTime);
+      throw error;
+    }
   }
 
   async getMovie(id: string): Promise<Movie> {

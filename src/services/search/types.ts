@@ -1,5 +1,7 @@
 import { Pagination } from "@/services/types";
 
+export type SearchType = "movies" | "people";
+
 export interface SearchParams {
   query: string;
 }

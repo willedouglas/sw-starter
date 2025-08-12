@@ -52,6 +52,12 @@ export default function SearchForm({
     onSearch(searchType, query);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch(searchType, query);
+    }
+  };
+
   const isSearchDisabled = query.length === 0;
 
   return (
@@ -80,6 +86,7 @@ export default function SearchForm({
           type="text"
           placeholder={getPlaceholder(searchType)}
           value={query}
+          onKeyDown={handleKeyDown}
           onChange={(e) => setQuery(e.target.value)}
         />
 

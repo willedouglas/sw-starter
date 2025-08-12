@@ -8,7 +8,7 @@ interface SearchResultItem {
 }
 
 interface SearchResultsProps {
-  items?: SearchResultItem[];
+  items: SearchResultItem[];
   isLoading?: boolean;
 }
 
@@ -22,15 +22,24 @@ export default function SearchResults({
 
       <Divider />
 
-      <div className="flex-1 flex items-center justify-center">
-        {items.length === 0 && !isLoading && <SearchEmptyState />}
-        {isLoading && <span>Searching...</span>}
-      </div>
+      {items.length === 0 && !isLoading && (
+        <div className="flex-1 flex items-center justify-center">
+          <SearchEmptyState />
+        </div>
+      )}
 
-      {items.length > 0 && (
+      {isLoading && (
+        <div className="flex-1 flex items-center justify-center">
+          <span className="text-sm font-bold text-[var(--color-pinkish-grey)]">
+            Searching...
+          </span>
+        </div>
+      )}
+
+      {items.length > 0 && !isLoading && (
         <ul className="w-full divide-y divide-gray-200 text-gray-700">
           {items.map((item, idx) => (
-            <li key={idx} className="py-2">
+            <li key={idx} className="text-sm font-bold py-[8.5px]">
               {item.name}
             </li>
           ))}

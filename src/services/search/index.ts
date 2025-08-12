@@ -28,4 +28,16 @@ export class SearchService extends BaseService {
 
     return response.data;
   }
+
+  async getMovie(id: string): Promise<Movie> {
+    const response = await this.get<Movie>(`/films/${id}`);
+
+    return response.data;
+  }
+
+  async getPerson(id: string): Promise<People> {
+    const response = await this.get<People>(`/people/${id}`);
+
+    return response.data;
+  }
 }

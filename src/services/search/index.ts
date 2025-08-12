@@ -1,13 +1,16 @@
 import { BaseService } from "@/services/BaseService";
+
 import { Movie, People, SearchParams, SearchResponse } from "./types";
 
 export class SearchService extends BaseService {
   constructor() {
-    super(process.env.NEXT_PUBLIC_SEARCH_API_URL || "");
+    const baseURL = process.env.NEXT_PUBLIC_SEARCH_API_URL || "";
+
+    super(baseURL);
   }
 
   async getMovies(params: SearchParams): Promise<SearchResponse<Movie>> {
-    const response = await this.get<SearchResponse<Movie>>("/movies", {
+    const response = await this.get<SearchResponse<Movie>>("/films", {
       params: {
         name: params.name,
       },

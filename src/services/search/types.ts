@@ -9,13 +9,11 @@ export interface SearchResponse<T> extends Pagination {
 }
 
 export interface Movie {
-  uid: string;
-  name: string;
+  title: string;
   url: string;
 }
 
 export interface People {
-  uid: string;
   name: string;
   url: string;
 }

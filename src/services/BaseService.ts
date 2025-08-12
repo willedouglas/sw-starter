@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+
 import { ApiResponse, ApiError } from "@/services/types";
 
 export class BaseService {

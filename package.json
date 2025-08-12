@@ -6,7 +6,20 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:build": "docker build -t sw-starter .",
+    "docker:build:dev": "docker build -f Dockerfile.dev -t sw-starter:dev .",
+    "docker:run": "docker run -p 3000:3000 sw-starter",
+    "docker:run:dev": "docker run -p 3001:3000 -v $(pwd):/app -v /app/node_modules -v /app/.next sw-starter:dev",
+    "docker:compose:up": "docker compose up --build",
+    "docker:compose:up:dev": "docker compose -f docker-compose.dev.yml up --build",
+    "docker:compose:up:prod": "docker compose up sw-starter --build",
+    "docker:compose:down": "docker compose down",
+    "docker:compose:down:dev": "docker compose -f docker-compose.dev.yml down",
+    "docker:logs": "docker compose logs -f",
+    "docker:logs:dev": "docker compose -f docker-compose.dev.yml logs -f",
+    "docker:clean": "docker system prune -f && docker volume prune -f",
+    "docker:clean:all": "docker system prune -a -f && docker volume prune -f"
   },
   "dependencies": {
     "axios": "^1.11.0",

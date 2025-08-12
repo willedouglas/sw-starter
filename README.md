@@ -27,6 +27,20 @@ The application integrates with the [Star Wars API (SWAPI)](https://swapi.py4e.c
 - Detailed character information (physical attributes, film appearances)
 - Paginated results for large datasets
 
+### 📊 Analytics & Statistics
+
+The application includes a comprehensive analytics system that tracks search queries and provides:
+
+- **Top 5 Search Queries**: Most popular searches with percentages
+- **Average Response Time**: Performance metrics for API calls
+- **Peak Usage Hours**: Most active time periods for searches
+- **Real-time Updates**: Statistics recomputed every 5 minutes automatically
+- **Historical Data**: Persistent tracking of all search queries
+
+**API Endpoints:**
+
+- `GET /api/statistics` - Retrieve current search statistics
+
 ## 🐳 Docker Setup
 
 This application is fully containerized and can run in both development and production environments using Docker.
@@ -102,6 +116,10 @@ open http://localhost:3000
 ### Health Checks
 
 The application includes a health check endpoint at `/api/health` for Docker health monitoring.
+
+### Analytics Access
+
+Access search analytics by calling the `/api/statistics` endpoint directly to retrieve real-time statistics and performance metrics.
 
 ## 🔧 Configuration
 

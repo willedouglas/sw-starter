@@ -128,6 +128,7 @@ Access search analytics by calling the `/api/statistics` endpoint directly to re
 | Variable                     | Description               | Default                                   |
 | ---------------------------- | ------------------------- | ----------------------------------------- |
 | `NODE_ENV`                   | Environment mode          | `production` (prod) / `development` (dev) |
+| `INIT_CRON`                  | Enables cron              | `true`                                    |
 | `NEXT_TELEMETRY_DISABLED`    | Disable Next.js telemetry | `1`                                       |
 | `NEXT_PUBLIC_SEARCH_API_URL` | Search API URL            | `https://swapi.py4e.com/api`              |
 

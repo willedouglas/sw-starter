@@ -13,6 +13,7 @@ services:
       - /app/.next
     environment:
       - NODE_ENV=development
+      - INIT_CRON=true
       - NEXT_TELEMETRY_DISABLED=1
     restart: unless-stopped
     stdin_open: true

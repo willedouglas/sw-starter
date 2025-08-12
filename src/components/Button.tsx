@@ -2,10 +2,7 @@ import { JSX } from "react";
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function Button({
-  children,
-  disabled = false,
-}: ButtonProps): JSX.Element {
+export default function Button(props: ButtonProps): JSX.Element {
   const baseClasses =
     "h-[var(--size-small)] text-sm text-white font-bold border border-solid border-[0.5px] rounded-[10px] uppercase";
 
@@ -16,12 +13,12 @@ export default function Button({
     "border-[var(--color-pinkish-grey)] bg-[var(--color-pinkish-grey)] cursor-not-allowed";
 
   const buttonClasses = `${baseClasses} ${
-    disabled ? disabledClasses : enabledClasses
+    props.disabled ? disabledClasses : enabledClasses
   }`;
 
   return (
-    <button className={buttonClasses} disabled={disabled}>
-      {children}
+    <button className={buttonClasses} {...props}>
+      {props.children}
     </button>
   );
 }

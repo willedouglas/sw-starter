@@ -12,7 +12,7 @@ export class SearchService extends BaseService {
   async getMovies(params: SearchParams): Promise<SearchResponse<Movie>> {
     const response = await this.get<SearchResponse<Movie>>("/films", {
       params: {
-        name: params.name,
+        search: params.query,
       },
     });
 
@@ -22,7 +22,7 @@ export class SearchService extends BaseService {
   async getPeople(params: SearchParams): Promise<SearchResponse<People>> {
     const response = await this.get<SearchResponse<People>>("/people", {
       params: {
-        name: params.name,
+        search: params.query,
       },
     });
 

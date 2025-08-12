@@ -1,7 +1,7 @@
 import { Pagination } from "@/services/types";
 
 export interface SearchParams {
-  name: string;
+  query: string;
 }
 
 export interface SearchResponse<T> extends Pagination {

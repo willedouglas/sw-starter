@@ -33,7 +33,7 @@ export default function useSearch(): UseSearch {
 
     try {
       if (isMovieSearch) {
-        const response = await searchService.getMovies({ name: query });
+        const response = await searchService.getMovies({ query });
 
         results =
           response.results.map((result) => ({
@@ -43,7 +43,7 @@ export default function useSearch(): UseSearch {
       }
 
       if (isPeopleSearch) {
-        const response = await searchService.getPeople({ name: query });
+        const response = await searchService.getPeople({ query });
 
         results =
           response.results.map((result) => ({

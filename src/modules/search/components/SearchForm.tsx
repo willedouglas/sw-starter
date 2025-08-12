@@ -2,11 +2,11 @@
 
 import { useState, JSX } from "react";
 
-import { SearchType } from "@/modules/search/types";
-
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Input from "@/components/Input";
+
+import { SearchType } from "@/modules/search/types";
 
 type SearchTypeOption = {
   label: string;
@@ -29,6 +29,16 @@ const SEARCH_TYPES: SearchTypeOption[] = [
   },
 ];
 
+const getPlaceholder = (searchType: SearchType) => {
+  const isMovieSearch = searchType === "movies";
+
+  if (isMovieSearch) {
+    return "e.g. Return of the Jedi, Attack of the Clones, A New Hope";
+  }
+
+  return "e.g. Chewbacca, Yoda, Boba Fett";
+};
+
 export default function SearchForm({
   isLoading = false,
   onSearch,
@@ -45,7 +55,7 @@ export default function SearchForm({
   const isSearchDisabled = query.length === 0;
 
   return (
-    <Card>
+    <Card className="min-w-[205px]">
       <div className="flex flex-col gap-[10px]">
         <legend className="text-sm font-semibold text-dark-gray">
           What are you searching for?
@@ -68,7 +78,7 @@ export default function SearchForm({
 
         <Input
           type="text"
-          placeholder="Type to search..."
+          placeholder={getPlaceholder(searchType)}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

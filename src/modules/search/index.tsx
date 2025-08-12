@@ -36,7 +36,7 @@ export default function SearchPage() {
       return router.push(`/people/${id}`);
     }
 
-    router.push(`/movie/${id}`);
+    router.push(`/movies/${id}`);
   };
 
   return (

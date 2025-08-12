@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import Header from "@/components/Header";
-
 import Results from "@/modules/search/components/SearchResults";
 import SearchForm from "@/modules/search/components/SearchForm";
 
@@ -23,11 +21,9 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      <Header title="SWStarter" />
-
-      <main className="flex-grow flex justify-center items-start bg-light-gray">
-        <div className="flex flex-col sm:flex-row gap-[15px] pt-[15px]">
+    <div className="flex flex-col">
+      <div className="flex-grow flex justify-center items-start">
+        <div className="flex flex-col sm:flex-row gap-[15px]">
           <div className="flex-shrink-0">
             <SearchForm onSearch={handleSearch} isLoading={isLoading} />
           </div>
@@ -35,7 +31,7 @@ export default function SearchPage() {
             <Results items={results} isLoading={isLoading} />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

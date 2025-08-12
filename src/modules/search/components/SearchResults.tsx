@@ -12,11 +12,13 @@ interface SearchResultItem {
 interface SearchResultsProps {
   items: SearchResultItem[];
   isLoading?: boolean;
+  onItemDetailsClick: (item: SearchResultItem) => void;
 }
 
 export default function SearchResults({
   items = [],
   isLoading = false,
+  onItemDetailsClick,
 }: SearchResultsProps) {
   return (
     <Card className="flex flex-col min-h-[291px] min-w-[291px]">
@@ -46,7 +48,9 @@ export default function SearchResults({
               className="text-sm font-bold py-[8.5px] flex justify-between"
             >
               {item.name}
-              <Button onClick={() => {}}>See Details</Button>
+              <Button onClick={() => onItemDetailsClick(item)}>
+                See Details
+              </Button>
             </li>
           ))}
         </ul>

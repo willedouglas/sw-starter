@@ -1,5 +1,7 @@
+import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Divider from "@/components/Divider";
+
 import SearchEmptyState from "@/modules/search/components/SearchEmptyState";
 
 interface SearchResultItem {
@@ -39,8 +41,12 @@ export default function SearchResults({
       {items.length > 0 && !isLoading && (
         <ul className="w-full divide-y divide-gray-200 text-gray-700">
           {items.map((item, idx) => (
-            <li key={idx} className="text-sm font-bold py-[8.5px]">
+            <li
+              key={idx}
+              className="text-sm font-bold py-[8.5px] flex justify-between"
+            >
               {item.name}
+              <Button onClick={() => {}}>See Details</Button>
             </li>
           ))}
         </ul>

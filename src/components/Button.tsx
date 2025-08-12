@@ -4,7 +4,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button(props: ButtonProps): JSX.Element {
   const baseClasses =
-    "h-[var(--size-small)] text-sm text-white font-bold border border-solid border-[0.5px] rounded-[10px] uppercase";
+    "h-[var(--size-small)] text-sm text-white font-bold border border-solid border-[0.5px] rounded-[10px] px-[10px] uppercase";
 
   const enabledClasses =
     "border-[var(--green-teal)] bg-[var(--green-teal)] cursor-pointer";

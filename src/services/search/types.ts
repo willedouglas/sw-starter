@@ -11,6 +11,8 @@ export interface SearchResponse<T> extends Pagination {
 export interface Movie {
   title: string;
   url: string;
+  opening_crawl: string;
+  characters: string[];
 }
 
 export interface People {

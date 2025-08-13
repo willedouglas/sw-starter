@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 
 import Results from "@/modules/search/components/SearchResults";
 import SearchForm from "@/modules/search/components/SearchForm";
-
 import useSearch, { SearchResultItem } from "@/modules/search/hooks/useSearch";
 
-import { SearchType } from "@/modules/search/types";
+import { SearchType } from "@/app/actions/search/types";
 
 import { getResourceId } from "@/utils/url";
 import { getResourceType } from "@/utils/url";

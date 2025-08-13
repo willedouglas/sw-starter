@@ -1,6 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
+
 import { StatisticsResponse } from "@/app/actions/statistics/types";
 import { getStatistics } from "@/app/actions/statistics";
 

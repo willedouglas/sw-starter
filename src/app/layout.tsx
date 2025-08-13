@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import "./globals.css";
 
+import CronInitializer from "@/components/CronInitializer";
 import Header from "@/components/Header";
+
+import "./globals.css";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -23,6 +25,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${montserrat.variable} antialiased`}>
         <Header title="SWStarter" />
+
+        <CronInitializer />
 
         <div className="min-h-screen bg-light-gray p-[15px]">{children}</div>
       </body>

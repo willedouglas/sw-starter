@@ -11,8 +11,8 @@ import {
   TopQuery,
 } from "@/app/actions/statistics/types";
 
-const FIVE_MINUTES = 5 * 60 * 1000;
-const DATA_FILE = join(process.cwd(), "data", "statistics.json");
+const DATA_FILE = join(process.cwd(), "data", "statistics-data.json");
+const COMPUTED_FILE = join(process.cwd(), "data", "statistics-computed.json");
 
 type RawQuery = Omit<SearchQuery, "timestamp"> & { timestamp: string };
 
@@ -41,10 +41,37 @@ async function loadQueries(): Promise<SearchQuery[]> {
   }
 }
 
+async function loadCalculatedStatistics(): Promise<SearchStatistics> {
+  try {
+    await ensureDataDir();
+    const data = await readFile(COMPUTED_FILE, "utf-8");
+    return JSON.parse(data);
+  } catch {
+    return {
+      topFiveQueries: [],
+      averageResponseTime: 0,
+      mostPopularHour: 0,
+      totalQueries: 0,
+      lastUpdated: new Date(),
+    };
+  }
+}
+
 async function saveQueries(queries: SearchQuery[]): Promise<void> {
   try {
     await ensureDataDir();
     await writeFile(DATA_FILE, JSON.stringify(queries, null, 2));
+  } catch {
+    return;
+  }
+}
+
+async function saveCalculatedStatistics(
+  statistics: SearchStatistics
+): Promise<void> {
+  try {
+    await ensureDataDir();
+    await writeFile(COMPUTED_FILE, JSON.stringify(statistics, null, 2));
   } catch {
     return;
   }
@@ -128,17 +155,16 @@ export const addQuery = async (
 };
 
 export const getStatistics = async (): Promise<SearchStatistics> => {
+  const calculatedStatistics = await loadCalculatedStatistics();
+
+  return calculatedStatistics;
+};
+
+export const recomputeStatistics = async (): Promise<void> => {
   const queries = await loadQueries();
 
   const statistics = computeStatistics(queries);
 
-  return statistics;
-};
-
-export const getQueries = async (): Promise<SearchQuery[]> => {
-  return await loadQueries();
-};
-
-export const clearStatistics = async (): Promise<void> => {
+  await saveCalculatedStatistics(statistics);
   await saveQueries([]);
 };

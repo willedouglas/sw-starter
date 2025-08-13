@@ -2,7 +2,7 @@
 
 import cron from "node-cron";
 
-import { getStatistics } from "@/app/actions/statistics";
+import { recomputeStatistics } from "@/app/actions/statistics";
 
 class CronService {
   private static instance: CronService | null = null;
@@ -27,35 +27,19 @@ class CronService {
       console.log("🔄 Recomputing search statistics...");
 
       try {
-        const stats = await getStatistics();
+        await recomputeStatistics();
 
-        console.log(
-          `✅ Statistics recomputed successfully. Total queries: ${stats.totalQueries}`
-        );
+        console.log(`✅ Statistics recomputed successfully.`);
       } catch (error) {
         console.error("❌ Error recomputing statistics:", error);
       }
     });
 
     console.log(
-      "⏰ Cron jobs initialized - Statistics will be recomputed every 5 minutes!"
+      "⏰ Cron initialized - Statistics will be recomputed every 5 minutes!"
     );
 
     this.isInitialized = true;
-  }
-
-  async triggerManualStatisticsRecomputation(): Promise<void> {
-    console.log("🔄 Manually triggering statistics recomputation...");
-
-    try {
-      const stats = await getStatistics();
-
-      console.log(
-        `✅ Manual recomputation successful. Total queries: ${stats.totalQueries}`
-      );
-    } catch (error) {
-      console.error("❌ Error during manual recomputation:", error);
-    }
   }
 }
 

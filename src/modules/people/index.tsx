@@ -3,14 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
+import { getMovie, getPerson } from "@/services/search";
+
+import { Movie, People } from "@/app/actions/search/types";
+
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Link from "@/components/Link";
 import DetailSection from "@/components/DetailSection";
-
-import { searchService } from "@/services";
-
-import { Movie, People } from "@/services/search/types";
 
 import { getResourceId } from "@/utils/url";
 
@@ -44,18 +44,18 @@ export default function PeoplePage() {
   }, [router]);
 
   useEffect(() => {
-    const getPerson = async () => {
+    const fetch = async () => {
       const id = params.people as string;
 
       try {
         setIsLoading(true);
 
-        const person = await searchService.getPerson(id);
+        const person = await getPerson(id);
 
         const movies = person.films.map((url) => {
           const movieId = getResourceId(url);
 
-          return searchService.getMovie(movieId);
+          return getMovie(movieId);
         });
 
         const handled = await Promise.all(movies);
@@ -71,7 +71,7 @@ export default function PeoplePage() {
       }
     };
 
-    getPerson();
+    fetch();
   }, [onBackToSearchClick, params.people]);
 
   if (isLoading) {

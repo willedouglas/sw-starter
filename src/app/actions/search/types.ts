@@ -1,4 +1,4 @@
-import { Pagination } from "@/services/types";
+import { Pagination } from "@/app/actions/types";
 
 export type SearchType = "movies" | "people";
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import { searchService } from "@/services";
+import { getMovies, getPeople } from "@/services/search";
 
-import { SearchType } from "@/modules/search/types";
+import { SearchType } from "@/app/actions/search/types";
 
 export type SearchResultItem = {
   name: string;
@@ -33,7 +33,7 @@ export default function useSearch(): UseSearch {
 
     try {
       if (isMovieSearch) {
-        const response = await searchService.getMovies({ query });
+        const response = await getMovies({ query });
 
         results =
           response.results.map((result) => ({
@@ -43,7 +43,7 @@ export default function useSearch(): UseSearch {
       }
 
       if (isPeopleSearch) {
-        const response = await searchService.getPeople({ query });
+        const response = await getPeople({ query });
 
         results =
           response.results.map((result) => ({

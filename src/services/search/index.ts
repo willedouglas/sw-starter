@@ -1,67 +1,29 @@
-import { BaseService } from "@/services/BaseService";
+"use server";
 
-import { statisticsService } from "@/services";
+import * as SearchService from "@/app/actions/search";
+import {
+  SearchParams,
+  SearchResponse,
+  Movie,
+  People,
+} from "@/app/actions/search/types";
 
-import { Movie, People, SearchParams, SearchResponse } from "./types";
+export async function getMovies(
+  params: SearchParams
+): Promise<SearchResponse<Movie>> {
+  return SearchService.getMovies(params);
+}
 
-export class SearchService extends BaseService {
-  constructor() {
-    const baseURL = process.env.NEXT_PUBLIC_SEARCH_API_URL || "";
+export async function getPeople(
+  params: SearchParams
+): Promise<SearchResponse<People>> {
+  return SearchService.getPeople(params);
+}
 
-    super(baseURL);
-  }
+export async function getMovie(id: string): Promise<Movie> {
+  return SearchService.getMovie(id);
+}
 
-  async getMovies(params: SearchParams): Promise<SearchResponse<Movie>> {
-    const startTime = Date.now();
-
-    try {
-      const response = await this.get<SearchResponse<Movie>>("/films", {
-        params: {
-          search: params.query,
-        },
-      });
-
-      const responseTime = Date.now() - startTime;
-      statisticsService.addQuery(params.query, "movies", responseTime);
-
-      return response.data;
-    } catch (error) {
-      const responseTime = Date.now() - startTime;
-      statisticsService.addQuery(params.query, "movies", responseTime);
-      throw error;
-    }
-  }
-
-  async getPeople(params: SearchParams): Promise<SearchResponse<People>> {
-    const startTime = Date.now();
-
-    try {
-      const response = await this.get<SearchResponse<People>>("/people", {
-        params: {
-          search: params.query,
-        },
-      });
-
-      const responseTime = Date.now() - startTime;
-      statisticsService.addQuery(params.query, "people", responseTime);
-
-      return response.data;
-    } catch (error) {
-      const responseTime = Date.now() - startTime;
-      statisticsService.addQuery(params.query, "people", responseTime);
-      throw error;
-    }
-  }
-
-  async getMovie(id: string): Promise<Movie> {
-    const response = await this.get<Movie>(`/films/${id}`);
-
-    return response.data;
-  }
-
-  async getPerson(id: string): Promise<People> {
-    const response = await this.get<People>(`/people/${id}`);
-
-    return response.data;
-  }
+export async function getPerson(id: string): Promise<People> {
+  return SearchService.getPerson(id);
 }

@@ -6,7 +6,7 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Input from "@/components/Input";
 
-import { SearchType } from "@/modules/search/types";
+import { SearchType } from "@/app/actions/search/types";
 
 type SearchTypeOption = {
   label: string;

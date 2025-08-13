@@ -1,4 +1,4 @@
-import { SearchType } from "@/modules/search/types";
+import { SearchType } from "@/app/actions/search/types";
 
 export interface SearchQuery {
   query: string;

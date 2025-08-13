@@ -14,6 +14,7 @@ services:
     environment:
       - NODE_ENV=development
       - INIT_CRON=true
+      - SEARCH_API_URL=https://swapi.py4e.com/api
       - NEXT_TELEMETRY_DISABLED=1
     restart: unless-stopped
     stdin_open: true

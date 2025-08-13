@@ -14,7 +14,7 @@ EXPOSE 3000
 
 ENV NODE_ENV=development
 ENV INIT_CRON=true
+ENV SEARCH_API_URL=https://swapi.py4e.com/api
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_SEARCH_API_URL=https://swapi.py4e.com/api
 
 CMD ["npm", "run", "dev"]

@@ -12,7 +12,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_PUBLIC_SEARCH_API_URL=https://swapi.py4e.com/api
+ENV SEARCH_API_URL=https://swapi.py4e.com/api
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npm run build

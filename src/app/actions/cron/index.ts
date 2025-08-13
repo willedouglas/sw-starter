@@ -1,20 +1,33 @@
+"use server";
+
 import cron from "node-cron";
 
-import { statisticsService } from "@/services";
+import { getStatistics } from "@/app/actions/statistics";
 
-export class CronService {
+class CronService {
+  private static instance: CronService | null = null;
+
   private isInitialized = false;
 
-  initialize(): void {
+  private constructor() {}
+
+  public static getInstance(): CronService {
+    if (!CronService.instance) {
+      CronService.instance = new CronService();
+    }
+    return CronService.instance;
+  }
+
+  async initialize(): Promise<void> {
     if (this.isInitialized) {
       return;
     }
 
-    cron.schedule("*/5 * * * *", () => {
+    cron.schedule("*/5 * * * *", async () => {
       console.log("🔄 Recomputing search statistics...");
 
       try {
-        const stats = statisticsService.getStatistics();
+        const stats = await getStatistics();
 
         console.log(
           `✅ Statistics recomputed successfully. Total queries: ${stats.totalQueries}`
@@ -31,11 +44,11 @@ export class CronService {
     this.isInitialized = true;
   }
 
-  triggerManualStatisticsRecomputation(): void {
+  async triggerManualStatisticsRecomputation(): Promise<void> {
     console.log("🔄 Manually triggering statistics recomputation...");
 
     try {
-      const stats = statisticsService.getStatistics();
+      const stats = await getStatistics();
 
       console.log(
         `✅ Manual recomputation successful. Total queries: ${stats.totalQueries}`
@@ -45,3 +58,7 @@ export class CronService {
     }
   }
 }
+
+export const initialize = async (): Promise<void> => {
+  return CronService.getInstance().initialize();
+};
